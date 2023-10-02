@@ -32,6 +32,11 @@ public class WhatsappRepository {
     }
 
     public Group createGroup(List<User> users) {
+        for (User user : users){
+            if(!userMap.containsKey(user.getMobile())){
+                userMap.put(user.getMobile() , user);
+            }
+        }
         if(users.size() == 2){
             Group group = new Group();
             group.setName(users.get(1).getName());
@@ -44,7 +49,7 @@ public class WhatsappRepository {
         else {
             Group group = new Group();
             count++;
-            group.setName("Group"+count);
+            group.setName("Group "+count);
             group.setNumberOfParticipants(users.size());
             groupListMap.put(group,users);
             groupmessagedb.put(group,new ArrayList<>());
@@ -67,7 +72,7 @@ public class WhatsappRepository {
     public int sendMessage(Message message, User sender, Group group) {
             if(groupListMap.containsKey(group)){
                 for(User user : groupListMap.get(group)){
-                    if(user == sender){
+                    if(user.getMobile().equals(sender.getMobile())){
                         List<Message> messages = usermessagedb.get(user);
                         messages.add(message);
                         usermessagedb.put(user,messages);
