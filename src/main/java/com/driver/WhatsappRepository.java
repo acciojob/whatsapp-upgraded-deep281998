@@ -118,6 +118,7 @@ public class WhatsappRepository {
                 if(user1 == user){
                     List<User> users = groupListMap.get(group);
                     users.remove(user1);
+                    group.setNumberOfParticipants(group.getNumberOfParticipants()-1);
                     groupListMap.put(group,users);
                     List<Message> messageList = usermessagedb.get(user);
                     usermessagedb.remove(user);
