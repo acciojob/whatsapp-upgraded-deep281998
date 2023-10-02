@@ -107,6 +107,9 @@ public class WhatsappRepository {
     }
 
     public int removeUser(User user) {
+        if(!userMap.containsKey(user.getMobile())){
+            throw new RuntimeException("User not found");
+        }
         if(admindb.containsKey(user)){
             throw new RuntimeException("Cannot remove admin");
         }
