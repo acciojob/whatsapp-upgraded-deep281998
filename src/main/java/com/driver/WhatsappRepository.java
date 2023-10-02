@@ -20,6 +20,7 @@ public class WhatsappRepository {
     Map<User , Group> admindb = new HashMap<>();
 
     int count = 0;
+    int messagecount = 1;
 
     public String createUser(String name, String mobile) {
         if(userMap.containsKey(mobile) == true){
@@ -59,7 +60,8 @@ public class WhatsappRepository {
     }
 
     public int createMessage(String content) {
-        int id = Integer.parseInt(UUID.randomUUID().toString());
+        int id = messagecount;
+        messagecount++;
         Date date = new Date();
         Message message = new Message();
         message.setId(id);
